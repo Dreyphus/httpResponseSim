@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+ <form method="post" action="http://localhost:3000">
+    <label for="firstname">Choose Staus code:</label>
+    <select name="cars" id="cars">
+        <option value="200">200</option>
+        <option value="301">301</option>
+        <option value="307">307</option>
+        <option value="400">400</option>
+        <option value="401">403</option>
+        <option value="404">404</option>
+        <option value="500">500</option>
+      </select><br />
+    <input type="submit" />
+</form>
+
+-->
+
+<script>
+    async function testCall() {
+        try {
+	        let response = await fetch('http://localhost:3000', { method: 'GET' });
+
+	        // check if server responded with http response != 200
+	        if(response.status != 200)
+		        throw new Error('Request Failed'); 
+
+	        // HTTP request was successful with 200 response code
+	        // start reading the JSON response now
+	        //let json_response = await response.json();
+
+	        // success
+        }
+        catch(e) {
+	        // catch error
+	        alert(e.message);
+        }
+    }   
+    testCall() 
+</script>
+
+</html>
