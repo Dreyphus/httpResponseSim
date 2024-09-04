@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<!-- 
- <form method="post" action="http://localhost:3000">
-    <label for="firstname">Choose Staus code:</label>
-    <select name="cars" id="cars">
+<!-- -->
+ <form id="codeform" method="post" action="http://localhost:3000">
+    <label id="statcode">Choose Staus code:</label>
+    <select title="codeopt" name="codes">
         <option value="200">200</option>
         <option value="301">301</option>
         <option value="307">307</option>
@@ -15,17 +15,31 @@
     <input type="submit" />
 </form>
 
--->
+
 
 <script>
-    async function testCall() {
+    function getData(form) {
+        var formData = new FormData(form);
+
+        //for (var pair of formData.entries()) {
+        //    console.log(pair[0] + ": " + pair[1]);
+        //}
+        var jObj = Object.fromEntries(formData);
+        var jobjString = JSON.stringify(jObj);
+        return jobjString;
+    }
+    
+    async function testCall(requestBody) {
         try {
-	        let response = await fetch('http://localhost:3000', { method: 'GET' });
+	        let response = await fetch('http://localhost:3000', { method: 'POST', body: requestBody,});
+            
+            console.log(response.statusText)
 
-	        // check if server responded with http response != 200
-	        if(response.status != 200)
-		        throw new Error('Request Failed'); 
-
+	        if(response.status != 200){
+		        console.log("Not 200") 
+            }else{
+                console.log("Ok then")
+            }
 	        // HTTP request was successful with 200 response code
 	        // start reading the JSON response now
 	        //let json_response = await response.json();
@@ -34,10 +48,16 @@
         }
         catch(e) {
 	        // catch error
-	        alert(e.message);
+	        console.error(e);
         }
     }   
-    testCall() 
+
+    document.getElementById("codeform").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var dataString = getData(e.target);
+        testCall(dataString);
+    });
+    
 </script>
 
 </html>
