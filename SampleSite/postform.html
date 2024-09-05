@@ -31,7 +31,11 @@
     
     async function testCall(requestBody) {
         try {
-	        let response = await fetch('http://localhost:3000', { method: 'POST', body: requestBody,});
+	        let response = await fetch('http://localhost:3000', { method: 'POST', 
+            body: requestBody, 
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"},});
             
             console.log(response.statusText)
 
